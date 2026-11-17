@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Agent Adoption Framework</title>
+<meta name="description" content="An open framework for adopting AI agents one department at a time, in four levels: bespoke, activated, orchestrated and self-improving. With the criteria for each level, five sources of agents and the three jobs that move a department up.">
+<link rel="canonical" href="https://agentadoption.ai/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#15213B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Agent Adoption Framework">
+<meta property="og:title" content="Agent Adoption Framework">
+<meta property="og:description" content="Companies adopt agents one department at a time, in four levels.">
+<meta property="og:url" content="https://agentadoption.ai/">
+<meta property="og:image" content="https://agentadoption.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Agent Adoption Framework: a company drawn as a building, with departments as columns and four levels as floors.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Agent Adoption Framework">
+<meta name="twitter:description" content="Companies adopt agents one department at a time, in four levels.">
+<meta name="twitter:image" content="https://agentadoption.ai/og.png">
+<style>*,*::before,*::after{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: a company drawn as a building in section (departments are bays, levels are floors), then the framework floor by floor. */
+:root{
+  --paper:#EDF0F3; --panel:#F8F9FB; --ink:#15213B; --muted:#4D5A6F; --rule:#C7CED8;
+  --l0:#A99B82; --l1:#1F958C; --l2:#3453CF; --l3:#E6A21A;
+  --l0-ink:#6A5D45; --l1-ink:#0E6A63; --l2-ink:#2A43AE; --l3-ink:#875A00;
+  --win:rgba(255,255,255,.55);
+  --display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0D141F; --panel:#141E2C; --ink:#E6EBF2; --muted:#9AA6B8; --rule:#283446;
+  --l0:#BBAE95; --l1:#3CC4B9; --l2:#7F97FF; --l3:#F4BE3E;
+  --l0-ink:#CFC3AB; --l1-ink:#5CD8CD; --l2-ink:#9DB0FF; --l3-ink:#F7CA62;
+  --win:rgba(13,20,31,.38); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0D141F; --panel:#141E2C; --ink:#E6EBF2; --muted:#9AA6B8; --rule:#283446;
+  --l0:#BBAE95; --l1:#3CC4B9; --l2:#7F97FF; --l3:#F4BE3E;
+  --l0-ink:#CFC3AB; --l1-ink:#5CD8CD; --l2-ink:#9DB0FF; --l3-ink:#F7CA62;
+  --win:rgba(13,20,31,.38); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--l2);outline-offset:3px;border-radius:4px}
+
+/* header */
+.top{padding-block:22px;border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.mark{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-variation-settings:"wdth" 112;font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+.mark svg{flex:none}
+.nav{display:flex;gap:22px;flex-wrap:wrap}
+.nav a{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}
+.nav a:hover{color:var(--ink)}
+
+/* type */
+.eyebrow{margin:0;font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+h1{font-variation-settings:"wdth" 96;font-weight:800;font-size:clamp(2.2rem,1.2rem + 2.8vw,3.7rem);line-height:1;letter-spacing:-.03em}
+h2{font-variation-settings:"wdth" 108;font-weight:750;font-size:clamp(1.9rem,1.3rem + 2vw,3rem);line-height:1.02;letter-spacing:-.025em}
+.lede{margin:0;max-width:36em;font-size:1.14rem;color:var(--muted)}
+.sec{padding-block:96px;border-top:1px solid var(--rule)}
+.sec-hd{display:grid;gap:16px;max-width:46rem}
+
+/* hero */
+.hero{padding-block:72px 88px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:48px;align-items:center}
+.hero-txt{display:grid;gap:22px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 20px;border-radius:10px;font-weight:600;font-size:.98rem;text-decoration:none;border:1.5px solid var(--ink);transition:transform .15s}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn:hover{transform:translateY(-2px)}
+.bldg{margin:0}
+.bldg svg{display:block;width:100%;height:auto}
+.bldg figcaption{margin-top:10px;font-size:.88rem;color:var(--muted)}
+.dline{stroke:var(--rule);stroke-width:1.2;stroke-dasharray:4 4}
+.dring{fill:var(--paper);stroke:var(--ink);stroke-width:1.4}
+.dfill.l0{fill:var(--l0)}.dfill.l1{fill:var(--l1)}.dfill.l2{fill:var(--l2)}.dfill.l3{fill:var(--l3)}
+.dlab{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;fill:var(--muted)}
+.dname{font-family:var(--display);font-variation-settings:"wdth" 100;font-weight:700;font-size:13px;fill:var(--ink)}
+.roof{fill:var(--ink)}
+.ground{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.fl.l0{fill:var(--l0)}.fl.l1{fill:var(--l1)}.fl.l2{fill:var(--l2)}.fl.l3{fill:var(--l3)}
+.win{fill:var(--win)}
+.cell.empty{fill:none;stroke:var(--rule);stroke-width:1.4;stroke-dasharray:5 4}
+.bay{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.06em;fill:var(--muted);text-anchor:middle}
+.qtr{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;fill:var(--ink);text-anchor:end}
+.lit{transform-box:fill-box;transform-origin:50% 100%;transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+.lit .win{transition:opacity .35s ease .3s}
+.lit.off{opacity:0;transform:scaleY(.35)}
+.lit.off .win{opacity:0;transition-delay:0s}
+
+/* the four levels */
+.lvls{margin-top:56px;display:grid;gap:18px}
+.lvl{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,.85fr);gap:36px;align-items:start;padding:34px 34px 36px;border-radius:20px;background:var(--panel);border:1px solid var(--rule);border-left:8px solid var(--c)}
+.lvl-n{font-family:var(--display);font-variation-settings:"wdth" 62;font-weight:900;font-size:10rem;line-height:.72;letter-spacing:-.04em;color:var(--c)}
+.lvl-main{display:grid;gap:12px;min-width:0}
+.lvl-lab{font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k)}
+.lvl h3{font-variation-settings:"wdth" 112;font-weight:750;font-size:2.1rem;line-height:1;letter-spacing:-.02em}
+.lvl-say{margin:0;font-size:1.12rem;font-weight:500}
+.lvl ul{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.lvl li{position:relative;padding-left:20px;color:var(--muted)}
+.lvl li::before{content:"";position:absolute;left:2px;top:.68em;width:8px;height:2px;background:var(--c)}
+.reach{min-width:0;padding:22px 24px;border-radius:14px;background:var(--paper);border:1px solid var(--rule)}
+.reach h4{margin:0 0 12px;font-family:var(--mono);font-size:.74rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k)}
+.reach ol{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.reach ol li{position:relative;padding-left:32px;font-weight:500;line-height:1.45}
+.reach ol li::before{content:"";position:absolute;left:0;top:.08em;width:20px;height:20px;border-radius:5px;border:2px solid var(--c)}
+.reach p{margin:0;color:var(--muted)}
+
+/* five sources */
+.grp{margin-top:48px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.grp::after{content:"";flex:1;height:1px;background:var(--rule)}
+.srcs{margin-top:18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.srcs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.src{display:grid;gap:10px;align-content:start;padding:26px;border-radius:18px;background:var(--panel);border:1px solid var(--rule)}
+.src h3{font-variation-settings:"wdth" 120;font-weight:800;font-size:1.9rem;letter-spacing:-.02em}
+.src p{margin:0;color:var(--muted)}
+.src .ask{margin-top:6px;padding-top:12px;border-top:1px solid var(--rule);font-weight:600;color:var(--ink)}
+.src .ask span{display:block;font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* three jobs */
+.jobs{margin-top:56px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.job{display:grid;gap:12px;align-content:start;padding:28px;border-radius:18px;background:var(--panel);border:1px solid var(--rule);border-top:6px solid var(--c)}
+.job .tag{justify-self:start;padding:5px 10px;border-radius:999px;background:var(--c);color:#0D141F;font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.job h3{font-variation-settings:"wdth" 112;font-weight:800;font-size:2rem;letter-spacing:-.02em}
+.job p{margin:0;color:var(--muted)}
+.job .who{font-size:.92rem;color:var(--ink)}
+.job .who b{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+
+/* principles */
+.prin{margin-top:56px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 56px}
+.pr{display:grid;gap:8px;padding-block:26px;border-top:1px solid var(--rule)}
+.pr h3{font-variation-settings:"wdth" 108;font-weight:750;font-size:1.45rem;letter-spacing:-.015em}
+.pr p{margin:0;color:var(--muted)}
+.pr:last-child{grid-column:1/-1}
+
+/* footer */
+.foot{padding-block:56px 64px;border-top:1px solid var(--rule)}
+.foot .wrap{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.foot p{margin:0;max-width:34em;color:var(--muted)}
+.spons{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.spons a{color:var(--ink);font-weight:600}
+
+@media (max-width:980px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
+  .lvl{grid-template-columns:minmax(0,1fr);gap:18px}
+  .lvl-n{font-size:7rem}
+  .srcs,.srcs.two,.jobs{grid-template-columns:minmax(0,1fr)}
+  .prin{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:520px){
+  body{font-size:16px}
+  .sec{padding-block:64px}
+  .lvl{padding:24px 20px 26px}
+  .lvl h3{font-size:1.7rem}
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="Agent Adoption Framework, home">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="18" width="22" height="5" rx="1" fill="var(--l0)"/><rect x="2" y="12" width="16" height="5" rx="1" fill="var(--l1)"/><rect x="2" y="6" width="10" height="5" rx="1" fill="var(--l2)"/><rect x="2" y="0" width="5" height="5" rx="1" fill="var(--l3)"/></svg>
+      Agent Adoption Framework
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#levels">Levels</a><a href="#sources">Sources</a><a href="#jobs">Jobs</a><a href="#principles">Principles</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-txt">
+        <p class="eyebrow">An open framework</p>
+        <h1>Companies adopt agents one department at a time, in four levels.</h1>
+        <p class="lede">The Agent Adoption Framework describes how a department moves from employees using personal assistants on their own to a mesh of agents that runs its work and improves itself. Use it to see where each department stands today and what it takes to reach the next level.</p>
+        <div class="btns">
+          <a class="btn solid" href="#levels">Read the four levels</a>
+          <a class="btn" href="#jobs">See the three jobs</a>
+        </div>
+      </div>
+      <figure class="bldg">
+        <svg viewBox="0 0 680 452" id="aaf-bldg" role="img" aria-label="A company drawn as a building in section, growing over four quarters. Each of six columns is a department and each floor is a level, from level 0, bespoke, on the ground floor to level 3, self-improving, at the top. Every department starts on the ground floor. Marketing climbs first and reaches level 3 by the fourth quarter. Sales and IT reach level 2, support and finance reach level 1, and HR is still on level 0.">
+<g class="datum"><path d="M0 340H126" class="dline"/><circle cx="10" cy="340" r="7" class="dring"/><path d="M10 333A7 7 0 0 1 17 340H10Z M10 347A7 7 0 0 1 3 340H10Z" class="dfill l0"/><text x="24" y="332" class="dlab">LEVEL 0</text><text x="24" y="359" class="dname">Bespoke</text></g>
+<g class="datum"><path d="M0 266H126" class="dline"/><circle cx="10" cy="266" r="7" class="dring"/><path d="M10 259A7 7 0 0 1 17 266H10Z M10 273A7 7 0 0 1 3 266H10Z" class="dfill l1"/><text x="24" y="258" class="dlab">LEVEL 1</text><text x="24" y="285" class="dname">Activated</text></g>
+<g class="datum"><path d="M0 192H126" class="dline"/><circle cx="10" cy="192" r="7" class="dring"/><path d="M10 185A7 7 0 0 1 17 192H10Z M10 199A7 7 0 0 1 3 192H10Z" class="dfill l2"/><text x="24" y="184" class="dlab">LEVEL 2</text><text x="24" y="211" class="dname">Orchestrated</text></g>
+<g class="datum"><path d="M0 118H126" class="dline"/><circle cx="10" cy="118" r="7" class="dring"/><path d="M10 111A7 7 0 0 1 17 118H10Z M10 125A7 7 0 0 1 3 118H10Z" class="dfill l3"/><text x="24" y="110" class="dlab">LEVEL 3</text><text x="24" y="137" class="dname">Self-improving</text></g>
+<text x="674" y="92" class="qtr" id="aaf-q">QUARTER 4</text>
+<rect x="126" y="104" width="548" height="8" rx="2" class="roof"/>
+<g class="base"><rect x="130" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="141" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="141" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="130" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="0" data-l="1"><rect x="130" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="141" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="141" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="130" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="0" data-l="2"><rect x="130" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="141" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="141" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="130" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="0" data-l="3"><rect x="130" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="141" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="141" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="165" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="189" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="172.5" y="440" class="bay">MARKETING</text>
+<g class="base"><rect x="221" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="232" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="232" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="221" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="1" data-l="1"><rect x="221" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="232" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="232" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="221" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="1" data-l="2"><rect x="221" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="232" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="232" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="221" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="1" data-l="3"><rect x="221" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="232" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="232" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="256" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="280" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="263.5" y="440" class="bay">SALES</text>
+<g class="base"><rect x="312" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="323" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="323" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="312" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="2" data-l="1"><rect x="312" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="323" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="323" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="312" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="2" data-l="2"><rect x="312" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="323" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="323" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="312" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="2" data-l="3"><rect x="312" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="323" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="323" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="347" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="371" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="354.5" y="440" class="bay">SUPPORT</text>
+<g class="base"><rect x="403" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="414" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="414" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="403" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="3" data-l="1"><rect x="403" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="414" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="414" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="403" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="3" data-l="2"><rect x="403" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="414" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="414" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="403" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="3" data-l="3"><rect x="403" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="414" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="414" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="438" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="462" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="445.5" y="440" class="bay">FINANCE</text>
+<g class="base"><rect x="494" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="505" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="505" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="494" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="4" data-l="1"><rect x="494" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="505" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="505" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="494" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit" data-b="4" data-l="2"><rect x="494" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="505" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="505" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="494" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="4" data-l="3"><rect x="494" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="505" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="505" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="529" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="553" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="536.5" y="440" class="bay">IT</text>
+<g class="base"><rect x="585" y="340" width="85" height="70" rx="3" class="fl l0"/><rect x="596" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="352" width="15" height="18" rx="1.5" class="win"/><rect x="596" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="378" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="378" width="15" height="18" rx="1.5" class="win"/></g><rect x="585" y="266" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="5" data-l="1"><rect x="585" y="266" width="85" height="70" rx="3" class="fl l1"/><rect x="596" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="278" width="15" height="18" rx="1.5" class="win"/><rect x="596" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="304" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="304" width="15" height="18" rx="1.5" class="win"/></g><rect x="585" y="192" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="5" data-l="2"><rect x="585" y="192" width="85" height="70" rx="3" class="fl l2"/><rect x="596" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="204" width="15" height="18" rx="1.5" class="win"/><rect x="596" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="230" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="230" width="15" height="18" rx="1.5" class="win"/></g><rect x="585" y="118" width="85" height="70" rx="3" class="cell empty"/><g class="lit off" data-b="5" data-l="3"><rect x="585" y="118" width="85" height="70" rx="3" class="fl l3"/><rect x="596" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="130" width="15" height="18" rx="1.5" class="win"/><rect x="596" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="620" y="156" width="15" height="18" rx="1.5" class="win"/><rect x="644" y="156" width="15" height="18" rx="1.5" class="win"/></g><text x="627.5" y="440" class="bay">HR</text>
+<path d="M110 414H680" class="ground"/>
+</svg>
+        <figcaption>Each column is a department and each floor is a level. Lit floors show how far each department has climbed.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec" id="levels">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="eyebrow">The four levels</p>
+        <h2>Each level adds one thing a department could not do before.</h2>
+        <p class="lede">A department climbs one level at a time, because each level depends on the one below it. The checklist under each level says what must be true before the department is there.</p>
+      </div>
+      <div class="lvls">
+        <article class="lvl" style="--c:var(--l0);--k:var(--l0-ink)">
+          <div class="lvl-n" aria-hidden="true">0</div>
+          <div class="lvl-main">
+            <span class="lvl-lab">Level 0</span>
+            <h3>Bespoke</h3>
+            <p class="lvl-say">Employees use personal assistants on their own.</p>
+            <ul>
+              <li>Each person has an assistant, a few saved prompts and skills, and their own habits.</li>
+              <li>Nothing is shared, nothing lasts past the task, and every person spends their own tokens.</li>
+              <li>Nobody can say which agents the department relies on.</li>
+            </ul>
+          </div>
+          <div class="reach">
+            <h4>Where most companies start</h4>
+            <p>Level 0 is the starting point. The good news is that the skills people already reuse are the raw material for level 1.</p>
+          </div>
+        </article>
+
+        <article class="lvl" style="--c:var(--l1);--k:var(--l1-ink)">
+          <div class="lvl-n" aria-hidden="true">1</div>
+          <div class="lvl-main">
+            <span class="lvl-lab">Level 1</span>
+            <h3>Activated</h3>
+            <p class="lvl-say">The department's agents live in one mesh, with owners and rules.</p>
+            <ul>
+              <li>The skills that keep working become departmental agents.</li>
+              <li>Agents come from five sources: skills, generated drafts, written processes, SaaS and custom builds.</li>
+              <li>Employees and other agents can find each agent and use it.</li>
+            </ul>
+          </div>
+          <div class="reach">
+            <h4>To reach level 1</h4>
+            <ol>
+              <li>Every agent the department relies on has a named owner.</li>
+              <li>Each agent has its own access and budget, separate from any person's.</li>
+              <li>Each agent publishes a card that says what it does and who may use it.</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="lvl" style="--c:var(--l2);--k:var(--l2-ink)">
+          <div class="lvl-n" aria-hidden="true">2</div>
+          <div class="lvl-main">
+            <span class="lvl-lab">Level 2</span>
+            <h3>Orchestrated</h3>
+            <p class="lvl-say">Workflows connect employees and agents, and run on their own.</p>
+            <ul>
+              <li>A process manager starts each workflow when an event happens or on a schedule.</li>
+              <li>Each workflow names its agents and what each one takes in and passes on.</li>
+              <li>People approve the decisions that are theirs before agents act.</li>
+            </ul>
+          </div>
+          <div class="reach">
+            <h4>To reach level 2</h4>
+            <ol>
+              <li>Work starts on events and schedules without anyone prompting an agent.</li>
+              <li>Every hand-off between agents is written down, with its inputs and outputs.</li>
+              <li>Approvals are part of the workflow and assigned to named people.</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="lvl" style="--c:var(--l3);--k:var(--l3-ink)">
+          <div class="lvl-n" aria-hidden="true">3</div>
+          <div class="lvl-main">
+            <span class="lvl-lab">Level 3</span>
+            <h3>Self-improving</h3>
+            <p class="lvl-say">The mesh learns from every run and improves its workflows and agents.</p>
+            <ul>
+              <li>Every run is recorded against the department's goals.</li>
+              <li>The mesh proposes changes, such as sending follow-ups sooner or moving budget between agents.</li>
+              <li>Owners approve each change, and the next run starts from the better version.</li>
+            </ul>
+          </div>
+          <div class="reach">
+            <h4>To reach level 3</h4>
+            <ol>
+              <li>Every run is recorded with what each agent did, what it cost and what came of it.</li>
+              <li>Changes are proposed from that record and measured against the goals.</li>
+              <li>An owner approves each change before it takes effect.</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sources">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="eyebrow">Five sources of agents</p>
+        <h2>A department's first agents come from five places, and three of them are enough to reach level 1.</h2>
+        <p class="lede">Each source comes with one question. Ask it inside the department, and the answers become the mesh's first list of agents.</p>
+      </div>
+      <div class="grp">Start with these</div>
+      <div class="srcs">
+        <div class="src"><h3>Skills</h3><p>The prompts and skills employees already reuse every week, hardened into agents the whole department can use.</p><p class="ask"><span>Ask</span>Which skills does your team reuse every week?</p></div>
+        <div class="src"><h3>Generated</h3><p>First agents and workflows drafted with generative AI from the department's goals and how its work gets done.</p><p class="ask"><span>Ask</span>What work would your team hand to an agent first?</p></div>
+        <div class="src"><h3>Processes</h3><p>Playbooks and runbooks that already describe the work, turned into workflows that run on events and schedules.</p><p class="ask"><span>Ask</span>Which of your processes are written down?</p></div>
+      </div>
+      <div class="grp">Add as you need them</div>
+      <div class="srcs two">
+        <div class="src"><h3>SaaS</h3><p>Third-party agents you subscribe to for specific jobs, working under the same rules and approvals as your own.</p><p class="ask"><span>Ask</span>Which jobs would you rather subscribe to an agent for than build one?</p></div>
+        <div class="src"><h3>Custom</h3><p>Agents your developers build for the work nothing else covers, each with an owner, a budget and a card.</p><p class="ask"><span>Ask</span>What work does your team do that no tool handles?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="jobs">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="eyebrow">Three jobs</p>
+        <h2>Three jobs move a department up the levels, and each one unlocks the next level.</h2>
+        <p class="lede">A person, a team or an agent can do each job. What matters is that someone does it, for every department, all the time.</p>
+      </div>
+      <div class="jobs">
+        <div class="job" style="--c:var(--l1)"><span class="tag">Unlocks level 1</span><h3>Curation</h3><p>Find the skills, drafts and agents that work. Harden each one, give it an owner, a budget and a card, and add it to the department's mesh.</p><p class="who"><b>Asks</b>Is this agent ready for the whole department?</p></div>
+        <div class="job" style="--c:var(--l2)"><span class="tag">Unlocks level 2</span><h3>Orchestration</h3><p>Run workflows on events and schedules, pass work from one agent to the next, and route each decision to the person who owns it.</p><p class="who"><b>Asks</b>What starts this work, and who does each part?</p></div>
+        <div class="job" style="--c:var(--l3)"><span class="tag">Unlocks level 3</span><h3>Improvement</h3><p>Record every run against the department's goals, propose changes that would do better, and put each change in front of its owner.</p><p class="who"><b>Asks</b>What would make the next run better than the last?</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="principles">
+    <div class="wrap">
+      <div class="sec-hd">
+        <p class="eyebrow">Principles</p>
+        <h2>Five principles keep adoption moving across the whole company.</h2>
+      </div>
+      <div class="prin">
+        <div class="pr"><h3>Adopt by department.</h3><p>The department is the unit of adoption: it has goals, a budget and people who are accountable for both.</p></div>
+        <div class="pr"><h3>Start with what already works.</h3><p>Most departments already have agents in the skills their people reuse and the processes they have written down.</p></div>
+        <div class="pr"><h3>Keep people on the decisions that are theirs.</h3><p>At every level, approvals belong to named owners, and agents act inside the limits those owners set.</p></div>
+        <div class="pr"><h3>Climb one level at a time.</h3><p>Workflows need agents with owners, and improvement needs workflows that record their runs.</p></div>
+        <div class="pr"><h3>Map every department.</h3><p>Departments climb at different speeds. Draw the company as a building, one column per department, and light each floor it has reached.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>The Agent Adoption Framework is open. Use it, adapt it and share it inside your company or with your clients.</p>
+    <p class="spons">Sponsored by <a href="https://agentmesh.ai">AgentMesh</a></p>
+  </div>
+</footer>
+<script>
+(function () {
+  var svg = document.getElementById("aaf-bldg");
+  if (!svg || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+  var q = document.getElementById("aaf-q");
+  var floors = Array.prototype.slice.call(svg.querySelectorAll(".lit"));
+  function floor(b, l) { return svg.querySelector('.lit[data-b="' + b + '"][data-l="' + l + '"]'); }
+  // [ms, action]: a quarter label, or a department (bay) reaching a level
+  var plan = [
+    [0, "Q1"], [700, [0, 1]],
+    [2000, "Q2"], [2400, [0, 2]], [2800, [1, 1]], [3200, [4, 1]],
+    [4400, "Q3"], [4800, [0, 3]], [5200, [1, 2]], [5600, [2, 1]],
+    [6800, "Q4"], [7200, [4, 2]], [7600, [3, 1]]
+  ];
+  var LOOP = 12200, timers = [], running = false;
+  function reset() { floors.forEach(function (f) { f.classList.add("off"); }); q.textContent = "QUARTER 1"; }
+  function run() {
+    reset();
+    plan.forEach(function (p) {
+      timers.push(setTimeout(function () {
+        if (typeof p[1] === "string") q.textContent = "QUARTER " + p[1].slice(1);
+        else { var f = floor(p[1][0], p[1][1]); if (f) f.classList.remove("off"); }
+      }, p[0]));
+    });
+    timers.push(setTimeout(function () { floors.forEach(function (f) { f.classList.add("off"); }); }, LOOP - 900));
+    timers.push(setTimeout(run, LOOP));
+  }
+  function stop() { timers.forEach(clearTimeout); timers = []; running = false; }
+  function start() { if (!running) { running = true; run(); } }
+  var inView = !("IntersectionObserver" in window);
+  if (!inView) {
+    new IntersectionObserver(function (es) { es.forEach(function (e) { inView = e.isIntersecting; inView ? start() : stop(); }); }, { threshold: 0.3 }).observe(svg);
+  } else { start(); }
+  document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else if (inView) start(); });
+})();
+</script>
+</body>
+</html>
